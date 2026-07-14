@@ -183,7 +183,6 @@ const DOC_CONTEXT = `【公司组织架构】员工 → 经理 → 副总经理 
 七、责任追究：未经授权/未经审核签合同、与对方串通、玩忽职守造成损失，追究行政/经济/刑事责任。`;
 
 let API_KEY = '';
-const EMBEDDED_KEY = 'sk-2a43f0f20e3648fcbbf5e092c677daab';
 let conversationHistory = [];
 const chatArea = document.getElementById('mainApp');
 
@@ -344,7 +343,11 @@ ${DOC_CONTEXT}
     if (!resp.ok) {
       const errText = await resp.text().catch(() => '');
       let errMsg = `API 请求失败 (${resp.status})`;
-      if (resp.status === 401) errMsg = 'API Key 无效或已过期，请重新设置';
+      if (resp.status === 401) {
+        errMsg = 'API Key 无效或已过期，请重新设置';
+        clearStoredKey();
+        setTimeout(showSetup, 1500);
+      }
       else if (resp.status === 402) errMsg = 'DeepSeek 账户余额不足，请充值';
       else if (resp.status === 429) errMsg = '请求太频繁，请稍后再试';
       addMsg('bot', `<p>⚠️ ${escapeHtml(errMsg)}</p>` + (errText ? `<p style="font-size:11px;color:var(--text-light)">${escapeHtml(errText.substring(0,200))}</p>` : ''));
@@ -388,8 +391,15 @@ function formatAnswer(text) {
   return `<div style="white-space:normal">${html}</div>`;
 }
 
-// 初始化 — 优先级：URL 携带密钥 > 本地存储 > 内置密钥
+// 初始化 — 优先级：URL 携带密钥 > 本地存储 > 输入设置
+function clearStoredKey() {
+  try { localStorage.removeItem('ds_api_key'); } catch(e) {}
+  API_KEY = '';
+  conversationHistory = [];
+}
 const savedKey = (() => { try { return localStorage.getItem('ds_api_key'); } catch(e) { return null; } })();
+// 如果本地存的是已吊销的旧 Key（尾号 daab）或任何非 sk- 开头的值，自动清理
+const isOldRevokedKey = savedKey && savedKey.endsWith('daab');
 
 function getUrlKey() {
   try {
@@ -405,14 +415,11 @@ if (urlKey) {
   try { localStorage.setItem('ds_api_key', urlKey); } catch(e) {}
   try { history.replaceState(null, '', location.pathname); } catch(e) {}
   showChat();
-} else if (savedKey && savedKey.startsWith('sk-')) {
+} else if (savedKey && savedKey.startsWith('sk-') && !isOldRevokedKey) {
   API_KEY = savedKey;
   showChat();
-} else if (EMBEDDED_KEY && EMBEDDED_KEY.startsWith('sk-')) {
-  API_KEY = EMBEDDED_KEY;
-  try { localStorage.setItem('ds_api_key', EMBEDDED_KEY); } catch(e) {}
-  showChat();
 } else {
+  if (isOldRevokedKey) clearStoredKey();
   showSetup();
 }
 </script>

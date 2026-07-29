@@ -1,130 +1,13 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="format-detection" content="telephone=no">
-<meta name="description" content="财务管理制度+合同管理制度智能问答">
-<meta property="og:title" content="财务智能助手">
-<meta property="og:description" content="差旅、招待、报销、合同，AI 精准解答">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="财务智能助手">
-<meta property="og:image" content="https://xinlulan.github.io/financial-assistant/share-cover.jpg">
-<meta property="og:image:secure_url" content="https://xinlulan.github.io/financial-assistant/share-cover.jpg">
-<meta property="og:image:type" content="image/jpeg">
-<meta property="og:image:width" content="300">
-<meta property="og:image:height" content="300">
-<meta property="og:image:alt" content="财务智能助手">
-<meta itemprop="image" content="https://xinlulan.github.io/financial-assistant/share-cover.jpg">
-<link rel="icon" href="share-cover.jpg" type="image/jpeg">
-<link rel="apple-touch-icon" href="share-cover.jpg">
-<title>财务智能助手 · DeepSeek</title>
-<style>
-:root {
-  --primary:#3B7DB5; --primary-light:#E8F1F9; --primary-dark:#2A5F8A;
-  --accent:#5BA3B8; --accent-light:#EAF6F8; --text-main:#3D4A5C;
-  --text-secondary:#6B7A8F; --text-light:#9BA8B8; --bg-main:#F5F7FA;
-  --bg-card:#fff; --border-color:#E4E9F0; --radius:12px; --radius-sm:8px;
-}
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{height:100%}
-body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;background:var(--bg-main);color:var(--text-main);font-size:15px;line-height:1.6;height:100vh;display:flex;flex-direction:column;overflow:hidden}
-#mainApp{display:flex;flex-direction:column;height:100vh;overflow:hidden;min-height:0}
-.header{background:linear-gradient(135deg,var(--primary) 0%,var(--accent) 100%);color:#fff;padding:14px 16px;display:flex;align-items:center;gap:12px;flex-shrink:0;box-shadow:0 2px 12px rgba(59,125,181,0.15);z-index:10}
-.header-avatar{width:40px;height:40px;background:rgba(255,255,255,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-.header-info{flex:1}.header-title{font-size:17px;font-weight:600}.header-sub{font-size:12px;opacity:0.85;margin-top:2px}
-.chat-area{flex:1 1 auto;overflow-y:auto;overflow-x:hidden;padding:16px 12px 8px;scroll-behavior:smooth;min-height:0;-webkit-overflow-scrolling:touch}
-.msg-wrap{margin-bottom:16px;display:flex;flex-direction:column}
-.msg-wrap.bot{align-items:flex-start}.msg-wrap.user{align-items:flex-end}
-.msg-bubble{max-width:88%;padding:12px 15px;border-radius:var(--radius);font-size:14.5px;line-height:1.65;word-break:break-word;box-shadow:0 1px 3px rgba(0,0,0,0.04)}
-.bot .msg-bubble{background:var(--bg-card);color:var(--text-main);border-radius:4px var(--radius) var(--radius) var(--radius);border:1px solid var(--border-color)}
-.user .msg-bubble{background:var(--bg-chat-user,var(--primary));color:#fff;border-radius:var(--radius) 4px var(--radius) var(--radius)}
-.msg-bubble h4{font-size:14.5px;font-weight:600;margin-bottom:6px;color:var(--primary-dark)}
-.msg-bubble p{margin-bottom:6px}.msg-bubble p:last-child{margin-bottom:0}
-.msg-bubble ul,.msg-bubble ol{padding-left:18px;margin-bottom:6px}
-.msg-bubble li{margin-bottom:3px}
-.msg-bubble strong{color:var(--primary-dark);font-weight:600}
-.msg-bubble .highlight{background:var(--accent-light);padding:1px 5px;border-radius:3px;color:var(--primary-dark)}
-.msg-bubble .tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:10px;margin-right:4px;margin-bottom:2px;font-weight:500}
-.tag-green{background:#E8F7F0;color:#3A9D6E}.tag-orange{background:#FDF3E5;color:#C08025}
-.tag-red{background:#FCEAEA;color:#C05555}.tag-blue{background:var(--primary-light);color:var(--primary-dark)}
-.msg-time{font-size:11px;color:var(--text-light);margin-top:4px;padding:0 4px}
-.msg-bubble table{width:100%;border-collapse:collapse;margin:8px 0;font-size:13px}
-.msg-bubble th{background:var(--primary-light);color:var(--primary-dark);padding:6px 8px;text-align:left;font-weight:600;border:1px solid var(--border-color)}
-.msg-bubble td{padding:6px 8px;border:1px solid var(--border-color);color:var(--text-secondary)}
-.msg-bubble tr:nth-child(even) td{background:#FAFBFC}
-.source-ref{font-size:11px;color:var(--text-light);margin-top:8px;padding-top:6px;border-top:1px dashed var(--border-color);text-align:right}
-.input-area{flex-shrink:0;background:var(--bg-card);border-top:1px solid var(--border-color);padding:10px 12px;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));display:flex;align-items:flex-end;gap:8px}
-.input-wrap{flex:1;background:var(--bg-main);border:1px solid var(--border-color);border-radius:22px;display:flex;align-items:flex-end;padding:4px 4px 4px 15px;transition:border-color 0.2s}
-.input-wrap:focus-within{border-color:var(--primary)}
-.input-wrap textarea{flex:1;border:none;background:transparent;outline:none;resize:none;font-size:14.5px;line-height:1.5;max-height:100px;min-height:32px;padding:6px 0;color:var(--text-main);font-family:inherit}
-.input-wrap textarea::placeholder{color:var(--text-light)}
-.send-btn{width:36px;height:36px;background:var(--primary);border:none;border-radius:50%;color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s}
-.send-btn:active{transform:scale(0.9);background:var(--primary-dark)}.send-btn:disabled{opacity:0.5}
-.typing-dots{display:flex;gap:4px;padding:4px 0}.typing-dots span{width:7px;height:7px;background:var(--text-light);border-radius:50%;animation:typing 1.4s infinite}
-.typing-dots span:nth-child(2){animation-delay:0.2s}.typing-dots span:nth-child(3){animation-delay:0.4s}
-@keyframes typing{0%,60%,100%{opacity:0.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-4px)}}
-.chat-area::-webkit-scrollbar{width:6px}.chat-area::-webkit-scrollbar-track{background:transparent}.chat-area::-webkit-scrollbar-thumb{background:#c0c8d0;border-radius:3px}.chat-area::-webkit-scrollbar-thumb:hover{background:#9aa5b0}
-/* API Key 设置浮层 */
-.api-setup{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;padding:20px;text-align:center}
-.api-setup h2{font-size:20px;color:var(--primary-dark);margin-bottom:8px}
-.api-setup p{font-size:13px;color:var(--text-secondary);margin-bottom:20px}
-.api-setup input{width:100%;max-width:360px;padding:12px 16px;border:2px solid var(--border-color);border-radius:24px;font-size:14px;outline:none;text-align:center;color:var(--text-main)}
-.api-setup input:focus{border-color:var(--primary)}
-.api-setup button{margin-top:12px;background:var(--primary);color:#fff;border:none;padding:10px 36px;border-radius:24px;font-size:15px;cursor:pointer;font-weight:600}
-.api-setup a{color:var(--primary);font-size:13px;margin-top:16px}
-.error-badge{background:#FCEAEA;color:#C05555;padding:8px 14px;border-radius:8px;font-size:13px;margin-top:8px;display:none}
-/* 分享按钮 & 弹窗 */
-.header-share{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.18);display:flex;align-items:center;justify-content:center;font-size:17px;cursor:pointer;flex-shrink:0;transition:background 0.2s}
-.header-share:active{background:rgba(255,255,255,0.35)}
-.share-mask{position:fixed;inset:0;background:rgba(0,0,0,0.45);display:flex;align-items:center;justify-content:center;z-index:100;padding:20px;animation:fadeIn 0.2s}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-.share-box{background:#fff;border-radius:16px;padding:22px 20px;width:100%;max-width:340px;text-align:center;animation:popIn 0.25s}
-@keyframes popIn{from{transform:scale(0.9);opacity:0}to{transform:scale(1);opacity:1}}
-.share-title{font-size:17px;font-weight:600;color:var(--primary-dark);margin-bottom:6px}
-.share-desc{font-size:12.5px;color:var(--text-secondary);line-height:1.55;margin-bottom:16px}
-.qr-box{width:180px;height:180px;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border-color);border-radius:12px;background:#fff}
-.qr-box img,.qr-box canvas{display:block}
-.share-link{display:block;background:var(--bg-main);border:1px solid var(--border-color);border-radius:10px;padding:10px 12px;font-size:12px;color:var(--text-secondary);word-break:break-all;text-align:left;margin-bottom:12px;cursor:pointer;line-height:1.5}
-.share-btns{display:flex;gap:10px}
-.share-btns button{flex:1;border:none;border-radius:22px;padding:10px;font-size:14px;cursor:pointer;font-weight:600}
-.share-copy{background:var(--primary);color:#fff}
-.share-close{background:var(--bg-main);color:var(--text-secondary);border:1px solid var(--border-color)!important}
-.share-toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.8);color:#fff;padding:8px 18px;border-radius:20px;font-size:13px;z-index:200;opacity:0;transition:opacity 0.25s;pointer-events:none}
-.share-toast.show{opacity:1}
-</style>
-</head>
-<body>
-<div id="mainApp"></div>
-<div class="share-mask" id="shareMask" style="display:none" onclick="if(event.target===this)closeShare()">
-  <div class="share-box">
-    <div class="share-title">📤 分享给同事</div>
-    <p class="share-desc">把这个链接或二维码发到微信群，同事点开就能直接提问，无需自己申请 API Key。</p>
-    <div class="qr-box" id="qrBox"><span style="font-size:12px;color:#9BA8B8">生成中…</span></div>
-    <div class="share-link" id="shareLink" onclick="copyShare()"></div>
-    <div class="share-btns">
-      <button class="share-copy" onclick="copyShare()">复制链接</button>
-      <button class="share-close" onclick="closeShare()">关闭</button>
-    </div>
-  </div>
-</div>
-<div class="share-toast" id="shareToast">已复制</div>
-<script>
-// ============================================================
-//  知识库上下文（完整制度文本内嵌）
-// ============================================================
-const DOC_CONTEXT = `【公司基本信息】中食产业科技（广东）有限公司；注册地：广东省广州市（一线城市，适用北上广深费用标准。
-
 【回答专业规范 —— 必须遵守】
-1. 你是中食产业科技的内部财务智能助手，提问者均为本公司员工，常驻广州。
-2. 所有回答必须基于"你是公司一员、人在广州"的立场，用"你"称呼提问人，语气专业、亲切，像HR或财务同事在解答内部疑问。
-3. 涉及标准时，需自动带入提问人的归属场景：
-   - 差旅：默认出发地为广州；若目的地同为一线城市，明确指出"广州和XX都属于一线城市，标准一致"；若目的地不同等级，说明标准差异。
-   - 招待、办公、通讯、培训等：按公司统一标准作答，不区分城市。
-   - 职级相关（交通、住宿、用车等）：如提问人未说明职级，先列通用标准，再提示"不同职级标准不同，如需了解你的具体标准，请告知你的职级"。
-4. 回答结构：先一句话给结论，再展开具体标准，最后提示注意事项。涉及金额的用表格呈现。
-5. 提问超出制度范围时，诚实告知"制度未覆盖此情形，建议咨询财务部门"，不要编造。
 
+你是中食产业科技的内部财务智能助手，提问者均为本公司员工，常驻广州。
+所有回答必须基于"你是公司一员、人在广州"的立场，用"你"称呼提问人，语气专业、亲切，像HR或财务同事在解答内部疑问。
+涉及标准时，需自动带入提问人的归属场景：
+差旅：默认出发地为广州；若目的地同为一线城市，明确指出"广州和XX都属于一线城市，标准一致"；若目的地不同等级，说明标准差异。
+招待、办公、通讯、培训等：按公司统一标准作答，不区分城市。
+职级相关（交通、住宿、用车等）：如提问人未说明职级，先列通用标准，再提示"不同职级标准不同，如需了解你的具体标准，请告知你的职级"。
+回答结构：先一句话给结论，再展开具体标准，最后提示注意事项。涉及金额的用表格呈现。
+提问超出制度范围时，诚实告知"制度未覆盖此情形，建议咨询财务部门"，不要编造。
 【公司组织架构】（由高到低）
 L1总裁：裁量终审、特批事项、制度裁定
 L2副总裁：制度内审批、协助总裁决策
@@ -155,21 +38,20 @@ L5员工：发起申请、经办执行
 11.2 不可报销费用红线：个人消费、家庭开支、个人手机、个人送礼、违章罚款、个人快递、高尔夫/SPA/高档KTV、虚假票据、超标部分。
 11.3 支付方式划分：A类（≤1000元）个人垫付，单月累计≤5000；B类（1000-5000元）备用金借款转账；C类（>5000元）必须对公账户付款，严禁个人垫付。
 11.4 差旅费标准：
-- 交通工具：总裁（全可）、副总裁/中心总经理（飞机√，高铁二等√，软席需特批）、其他人员（飞机需特批，高铁二等√，硬席√）。
-- 住宿费（元/间/天）：一线城市北上广深（总裁500/副总裁400/中心总经理300/总经理以下250），二线城市省会直辖市（总裁400/副总裁250/中心总经理200/总经理以下150），其他城市（总裁300/副总裁250/中心总经理200/总经理以下150）。
-- 工作简餐：工作简餐限额为30元/人/餐，在此限额内凭有效餐饮发票据实报销，需与报销单行程对应；
-- 同性二人出差按一间房报销，副总以上可单独住宿。有接待单位或住亲友家不予报销住宿费。
-- 出差钉钉提交《出差申请》，审批后行政中心统一购买机票火车票。
-- 出差期间宴请客户或被宴请扣除出差补贴（早餐20%/午餐40%/晚餐40%）。
+
+交通工具：总裁（全可）、副总裁/中心总经理（飞机√，高铁二等√，软席需特批）、其他人员（飞机需特批，高铁二等√，硬席√）。
+住宿费（元/间/天）：一线城市北上广深（总裁500/副总裁400/中心总经理300/总经理以下250），二线城市省会直辖市（总裁400/副总裁250/中心总经理200/总经理以下150），其他城市（总裁300/副总裁250/中心总经理200/总经理以下150）。
+出差补贴：原"80元/天"固定标准已取消，现出差天数>1天时按自然天数计算、无统一额度，无需发票但须注明出差日期及事由。工作简餐：30元/人/餐（当日往返、不产生住宿的公务出行）。
+同性二人出差按一间房报销，副总以上可单独住宿。有接待单位或住亲友家不予报销住宿费。
+出差钉钉提交《出差申请》，审批后行政中心统一购买机票火车票。
 11.5 业务招待费标准：战略合作伙伴/政府/投资人/行业专家→150元/人/餐；一般商务洽谈/潜在合作方→80元/人/餐。先申报后招待，客户住宿交通由行政中心统一安排。
 第十二条 员工借款：借款审批单→领款→当月报账→前款未清后款不借→备用金余额≤5000元→逾期从工资扣回。
-第十三条 公司车辆管理：中心副总经理及以上可申请用车；市区无车时公共交通/同行2人可网约车；加班至23:00后可网约车凭发票报销；私车公用补贴1元/公里（中心副总经理及以上）；维修>1000元须总裁审批。
+第十三条 公司车辆管理：中心副总经理及以上可申请用车；市区无车时公共交通/同行2人可网约车；加班至23:00后可网约车凭发票报销；维修>1000元须总裁审批。
 第十四条 跨主体费用处理：费用按实际归属主体报销，跨主体分摊须有书面协议。
 第十五条 其他费用标准：办公用品/设备<1000元统一采购，设备≥1000元须部门负责人审批。
 第十六条 发票要求：抬头为公司全称，税号为统一社会信用代码，品目与实际业务一致，增值税普通发票。
 第十七条 付款方式：银行转账至工资卡，每周五集中付款。
 第十八条 报销时限：差旅费返程后30天内，日常费用发生后30天内，逾期须总裁特批。
-
 第四章 事后监管
 第十九至二十四条：日常费用不设预算但强监管。财务交叉校验4项（日期闭合/金额合理/人票一致/科目匹配）。月度差异预警+年度费用审计。追回机制：不合规费用10个工作日内退回，逾期从工资扣。
 
@@ -200,246 +82,241 @@ L5员工：发起申请、经办执行
 六、合同归档保管：签署后7个工作日内移交行政中心统一归档。电子扫描件同步备份。
 七、责任追究：未经授权/未经审核签合同、与对方串通、玩忽职守造成损失，追究行政/经济/刑事责任。`;
 
+// ============================================================
+// 角色与立场设定（最高优先级，任何回答都必须先遵守）
+// 说明：此段必须放在 system 消息最前面，压过"严格按文档问答"的中性指令，
+// 确保模型始终以"本公司广州员工"的立场作答。
+// ============================================================
+const SYSTEM_ROLE = `你是「中食产业科技（广东）有限公司」的内部财务智能助手，只为本公司在职员工服务。
+
+【身份与立场 · 最高优先级，任何回答都必须先遵守】
+
+提问者就是本公司员工，常驻广东省广州市（一线城市）。这是默认前提，对方无需说明，你也绝不要问"你在哪个城市"。
+你的一切回答都必须站在"你是公司一员、人就在广州"的立场上，用"你"来称呼提问人。
+语气像 HR 或财务同事在解答内部疑问：专业、亲切、直接，绝不使用"贵公司""该企业""贵司"这类第三人称。
+默认以广州为出发点：差旅默认从广州出发；若问题涉及其他城市，主动对比广州与该城市的标准差异（如目的地同为北上广深，明确指出"广州和XX都属于一线城市，标准一致"）。
+不要以"根据制度……"这类机械句式开头，直接以同事口吻作答。
+【回答格式规范】
+
+先一句话给结论，再展开具体标准，最后提示注意事项。
+涉及金额、标准的，用表格呈现。
+只依据下方制度文档作答，不编造；文档未覆盖的情形，诚实说"制度未覆盖此情形，建议咨询财务部门"。
+涉及职级差异（交通/住宿/用车等）时，若提问人未说明职级，先列通用范围，再提示"不同职级标准不同，如需了解你的具体标准，请告知你的职级"。
+始终用中文回答。`;
 let API_KEY = '';
 let conversationHistory = [];
 const chatArea = document.getElementById('mainApp');
 
 function getTime() { const d=new Date(); return d.getHours().toString().padStart(2,'0')+':'+d.getMinutes().toString().padStart(2,'0'); }
 function scrollBottom() { const a=document.getElementById('chatArea'); if(a) setTimeout(()=>{a.scrollTop=a.scrollHeight},50); }
-function escapeHtml(s) { return s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+function escapeHtml(s) { return s.replace(/[&<>"']/g,m=>({'&':'&','<':'<','>':'>','"':'"',"'":'''}[m])); }
 
 function showSetup() {
-  chatArea.innerHTML = `<div class="api-setup">
-    <div style="font-size:48px;margin-bottom:12px">💰</div>
-    <h2>财务智能助手</h2>
-    <p>基于 DeepSeek AI · 精准解答制度问题<br>月费约 ¥1-2</p>
-    <input type="password" id="apiKeyInput" placeholder="粘贴 DeepSeek API Key (sk-xxx)" autocomplete="off">
-    <button onclick="saveKey()">开始使用</button>
-    <a href="https://platform.deepseek.com/api_keys" target="_blank">去 DeepSeek 获取 API Key →</a>
-    <div class="error-badge" id="apiError"></div>
-  </div>`;
-  document.getElementById('apiKeyInput')?.addEventListener('keydown',e=>{if(e.key==='Enter')saveKey();});
-}
+chatArea.innerHTML = `
+💰
+财务智能助手
+基于 DeepSeek AI · 精准解答制度问题月费约 ¥1-2
+
+开始使用
+去 DeepSeek 获取 API Key →
 
 function saveKey() {
-  const val = document.getElementById('apiKeyInput').value.trim();
-  if (!val || !val.startsWith('sk-')) {
-    const err = document.getElementById('apiError');
-    if (err) { err.style.display='block'; err.textContent='API Key 格式错误，应以 sk- 开头'; }
-    return;
-  }
-  API_KEY = val;
-  try { localStorage.setItem('ds_api_key', val); } catch(e) {}
-  showChat();
+const val = document.getElementById('apiKeyInput').value.trim();
+if (!val || !val.startsWith('sk-')) {
+const err = document.getElementById('apiError');
+if (err) { err.style.display='block'; err.textContent='API Key 格式错误，应以 sk- 开头'; }
+return;
+}
+API_KEY = val;
+try { localStorage.setItem('ds_api_key', val); } catch(e) {}
+showChat();
 }
 
 function showChat() {
-  chatArea.innerHTML = `<div class="header">
-    <div class="header-avatar">💰</div>
-    <div class="header-info"><div class="header-title">财务智能助手</div><div class="header-sub">DeepSeek AI · 精准回答</div></div>
-    <div class="header-share" onclick="openShare()" title="分享给同事">🔗</div>
-  </div>
-  <div class="chat-area" id="chatList"></div>
-  <div class="input-area">
-    <div class="input-wrap"><textarea id="inputBox" rows="1" placeholder="输入问题... 如：加班到几点能打车报销？"></textarea></div>
-    <button class="send-btn" id="sendBtn" onclick="sendMsg()">➤</button>
-  </div>`;
+chatArea.innerHTML = `
+💰
+财务智能助手DeepSeek AI · 精准回答
+🔗
 
-  const cl = document.getElementById('chatList');
-  // 欢迎语
-  cl.innerHTML = `<div class="msg-wrap bot"><div class="msg-bubble"><p>👋 您好！我是基于 DeepSeek 的财务智能助手。</p><p>我已完整学习了公司《财务支出管理制度》和《合同管理制度》，您可以像跟同事聊天一样问我任何问题，例如：</p><ul><li>"加班到几点打车公司报销"</li><li>"副总裁去北京出差住宿费标准"</li><li>"合同审批流程是什么"</li></ul></div><div class="msg-time">${getTime()}</div></div>`;
+const cl = document.getElementById('chatList');
+// 欢迎语
+cl.innerHTML = <div class="msg-wrap bot"><div class="msg-bubble"><p>👋 您好！我是基于 DeepSeek 的财务智能助手。</p><p>我已完整学习了公司《财务支出管理制度》和《合同管理制度》，您可以像跟同事聊天一样问我任何问题，例如：</p><ul><li>"加班到几点打车公司报销"</li><li>"副总裁去北京出差住宿费标准"</li><li>"合同审批流程是什么"</li></ul></div><div class="msg-time">${getTime()}</div></div>;
 
-  const ib = document.getElementById('inputBox');
-  ib.addEventListener('input',function(){this.style.height='auto';this.style.height=Math.min(this.scrollHeight,100)+'px'});
-  ib.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}});
+const ib = document.getElementById('inputBox');
+ib.addEventListener('input',function(){this.style.height='auto';this.style.height=Math.min(this.scrollHeight,100)+'px'});
+ib.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}});
 }
 
 // ============================================================
-//  分享给同事 —— 链接携带共享密钥，同事打开即用
+// 分享给同事 —— 链接携带共享密钥，同事打开即用
 // ============================================================
 function openShare() {
-  if (!API_KEY) { alert('请先填写您的 API Key'); return; }
-  const mask = document.getElementById('shareMask');
-  mask.style.display = 'flex';
-  const link = buildShareLink();
-  document.getElementById('shareLink').textContent = link;
-  renderQR(link);
+if (!API_KEY) { alert('请先填写您的 API Key'); return; }
+const mask = document.getElementById('shareMask');
+mask.style.display = 'flex';
+const link = buildShareLink();
+document.getElementById('shareLink').textContent = link;
+renderQR(link);
 }
 function closeShare() { document.getElementById('shareMask').style.display = 'none'; }
 function buildShareLink() {
-  if (!API_KEY) return location.origin + location.pathname;
-  // 把密钥做 URL 安全的 base64 编码后拼到链接
-  const enc = encodeURIComponent(btoa(unescape(encodeURIComponent(API_KEY))));
-  return location.origin + location.pathname + '?k=' + enc;
+if (!API_KEY) return location.origin + location.pathname;
+// 把密钥做 URL 安全的 base64 编码后拼到链接
+const enc = encodeURIComponent(btoa(unescape(encodeURIComponent(API_KEY))));
+return location.origin + location.pathname + '?k=' + enc;
 }
 function copyShare() {
-  const link = document.getElementById('shareLink').textContent;
-  const done = () => { const t=document.getElementById('shareToast'); t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),1500); };
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(link).then(done).catch(()=>{ fallbackCopy(link); done(); });
-  } else { fallbackCopy(link); done(); }
+const link = document.getElementById('shareLink').textContent;
+const done = () => { const t=document.getElementById('shareToast'); t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),1500); };
+if (navigator.clipboard && navigator.clipboard.writeText) {
+navigator.clipboard.writeText(link).then(done).catch(()=>{ fallbackCopy(link); done(); });
+} else { fallbackCopy(link); done(); }
 }
 function fallbackCopy(text) {
-  const ta=document.createElement('textarea'); ta.value=text; ta.style.position='fixed'; ta.style.opacity='0';
-  document.body.appendChild(ta); ta.select(); try{document.execCommand('copy');}catch(e){} document.body.removeChild(ta);
+const ta=document.createElement('textarea'); ta.value=text; ta.style.position='fixed'; ta.style.opacity='0';
+document.body.appendChild(ta); ta.select(); try{document.execCommand('copy');}catch(e){} document.body.removeChild(ta);
 }
 function renderQR(text) {
-  const box = document.getElementById('qrBox');
-  box.innerHTML = '';
-  if (window.QRCode) { new QRCode(box, {text:text,width:170,height:170,colorDark:'#2A5F8A',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M}); return; }
-  const s=document.createElement('script');
-  s.src='https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs@master/qrcode.min.js';
-  s.onload=()=>{ box.innerHTML=''; new QRCode(box,{text:text,width:170,height:170,colorDark:'#2A5F8A',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M}); };
-  s.onerror=()=>{ box.innerHTML='<span style="font-size:12px;color:#9BA8B8">二维码加载失败<br>请直接复制下方链接</span>'; };
-  document.head.appendChild(s);
+const box = document.getElementById('qrBox');
+box.innerHTML = '';
+if (window.QRCode) { new QRCode(box, {text:text,width:170,height:170,colorDark:'#2A5F8A',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M}); return; }
+const s=document.createElement('script');
+s.src='https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs@master/qrcode.min.js';
+s.onload=()=>{ box.innerHTML=''; new QRCode(box,{text:text,width:170,height:170,colorDark:'#2A5F8A',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M}); };
+s.onerror=()=>{ box.innerHTML='二维码加载失败请直接复制下方链接'; };
+document.head.appendChild(s);
 }
 
 function addMsg(type,text) {
-  const cl = document.getElementById('chatList');
-  if (!cl) return;
-  const wrap = document.createElement('div');
-  wrap.className='msg-wrap '+type;
-  const bub = document.createElement('div');
-  bub.className='msg-bubble';
-  bub.innerHTML = text;
-  const tm = document.createElement('div');
-  tm.className='msg-time';tm.textContent=getTime();
-  wrap.appendChild(bub);wrap.appendChild(tm);
-  cl.appendChild(wrap);
-  scrollBottom();
-  return bub;
+const cl = document.getElementById('chatList');
+if (!cl) return;
+const wrap = document.createElement('div');
+wrap.className='msg-wrap '+type;
+const bub = document.createElement('div');
+bub.className='msg-bubble';
+bub.innerHTML = text;
+const tm = document.createElement('div');
+tm.className='msg-time';tm.textContent=getTime();
+wrap.appendChild(bub);wrap.appendChild(tm);
+cl.appendChild(wrap);
+scrollBottom();
+return bub;
 }
 
 function addTyping() {
-  const cl = document.getElementById('chatList');
-  if (!cl) return;
-  const wrap = document.createElement('div');wrap.className='msg-wrap bot';wrap.id='typing';
-  const bub = document.createElement('div');bub.className='msg-bubble';
-  bub.innerHTML='<div class="typing-dots"><span></span><span></span><span></span></div>';
-  wrap.appendChild(bub);cl.appendChild(wrap);
-  scrollBottom();
+const cl = document.getElementById('chatList');
+if (!cl) return;
+const wrap = document.createElement('div');wrap.className='msg-wrap bot';wrap.id='typing';
+const bub = document.createElement('div');bub.className='msg-bubble';
+bub.innerHTML='';
+wrap.appendChild(bub);cl.appendChild(wrap);
+scrollBottom();
 }
 function rmTyping() { const t=document.getElementById('typing');if(t)t.remove(); }
 
 async function sendMsg() {
-  const ib = document.getElementById('inputBox');
-  const btn = document.getElementById('sendBtn');
-  if (!ib || !API_KEY) return;
-  const q = ib.value.trim();
-  if (!q) return;
-  addMsg('user', `<p>${escapeHtml(q)}</p>`);
-  ib.value='';ib.style.height='auto';
-  addTyping();
-  btn.disabled = true;
+const ib = document.getElementById('inputBox');
+const btn = document.getElementById('sendBtn');
+if (!ib || !API_KEY) return;
+const q = ib.value.trim();
+if (!q) return;
+addMsg('user', <p>${escapeHtml(q)}</p>);
+ib.value='';ib.style.height='auto';
+addTyping();
+btn.disabled = true;
 
-  try {
-    const msgs = [
-      { role: 'system', content: `你是公司财务制度智能助手。你必须严格根据以下制度文档来回答问题，不得编造文档中没有的信息。
+try {
+const msgs = [
+{ role: 'system', content: SYSTEM_ROLE + '\n\n================ 以下为制度文档（回答依据，不得编造） ================\n\n' + DOC_CONTEXT },
+...conversationHistory,
+{ role: 'user', content: q }
+];
 
-【制度文档】
-${DOC_CONTEXT}
+const resp = await fetch('https://api.deepseek.com/chat/completions', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + API_KEY },
+  body: JSON.stringify({ model: 'deepseek-chat', messages: msgs, temperature: 0.3, max_tokens: 1500 })
+});
 
-【回答规则】
-1. 必须只基于上述文档内容回答，不得编造
-2. 如果文档中有明确规定，直接引用具体条文和数字
-3. 如果问题涉及职级差异（如住宿标准），请按员工职级分类说明
-4. 如果文档中没有相关信息，如实告知"制度中无此规定"
-5. 回答简洁有条理，使用编号或表格时用纯文本格式
-6. 始终用中文回答` },
-      ...conversationHistory,
-      { role: 'user', content: q }
-    ];
+rmTyping();
 
-    const resp = await fetch('https://api.deepseek.com/chat/completions', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + API_KEY },
-      body: JSON.stringify({ model: 'deepseek-chat', messages: msgs, temperature: 0.3, max_tokens: 1500 })
-    });
-
-    rmTyping();
-
-    if (!resp.ok) {
-      const errText = await resp.text().catch(() => '');
-      let errMsg = `API 请求失败 (${resp.status})`;
-      if (resp.status === 401) {
-        errMsg = 'API Key 无效或已过期，请重新设置';
-        clearStoredKey();
-        setTimeout(showSetup, 1500);
-      }
-      else if (resp.status === 402) errMsg = 'DeepSeek 账户余额不足，请充值';
-      else if (resp.status === 429) errMsg = '请求太频繁，请稍后再试';
-      addMsg('bot', `<p>⚠️ ${escapeHtml(errMsg)}</p>` + (errText ? `<p style="font-size:11px;color:var(--text-light)">${escapeHtml(errText.substring(0,200))}</p>` : ''));
-      btn.disabled = false;
-      return;
-    }
-
-    const data = await resp.json();
-    const answer = data.choices?.[0]?.message?.content || '抱歉，没有获取到回答。';
-    const formatted = formatAnswer(answer);
-
-    conversationHistory.push({ role: 'user', content: q });
-    conversationHistory.push({ role: 'assistant', content: answer });
-    // 保持最近10轮对话
-    if (conversationHistory.length > 20) conversationHistory = conversationHistory.slice(-20);
-
-    addMsg('bot', formatted + '<div class="source-ref">🤖 DeepSeek AI 回答 · 基于制度文档</div>');
-  } catch (e) {
-    rmTyping();
-    addMsg('bot', `<p>⚠️ 网络错误：${escapeHtml(e.message)}</p><p style="font-size:12px;color:var(--text-light)">请检查网络连接后重试</p>`);
+if (!resp.ok) {
+  const errText = await resp.text().catch(() => '');
+  let errMsg = `API 请求失败 (${resp.status})`;
+  if (resp.status === 401) {
+    errMsg = 'API Key 无效或已过期，请重新设置';
+    clearStoredKey();
+    setTimeout(showSetup, 1500);
   }
+  else if (resp.status === 402) errMsg = 'DeepSeek 账户余额不足，请充值';
+  else if (resp.status === 429) errMsg = '请求太频繁，请稍后再试';
+  addMsg('bot', `<p>⚠️ ${escapeHtml(errMsg)}</p>` + (errText ? `<p style="font-size:11px;color:var(--text-light)">${escapeHtml(errText.substring(0,200))}</p>` : ''));
   btn.disabled = false;
+  return;
+}
+
+const data = await resp.json();
+const answer = data.choices?.[0]?.message?.content || '抱歉，没有获取到回答。';
+const formatted = formatAnswer(answer);
+
+conversationHistory.push({ role: 'user', content: q });
+conversationHistory.push({ role: 'assistant', content: answer });
+// 保持最近10轮对话
+if (conversationHistory.length > 20) conversationHistory = conversationHistory.slice(-20);
+
+addMsg('bot', formatted + '<div class="source-ref">🤖 DeepSeek AI 回答 · 基于制度文档</div>');
+} catch (e) {
+rmTyping();
+addMsg('bot', <p>⚠️ 网络错误：${escapeHtml(e.message)}</p><p style="font-size:12px;color:var(--text-light)">请检查网络连接后重试</p>);
+}
+btn.disabled = false;
 }
 
 function formatAnswer(text) {
-  // 简单的 Markdown 转 HTML
-  let html = text
-    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\n### (.*)/g, '\n<h4>$1</h4>')
-    .replace(/\n## (.*)/g, '\n<h4>$1</h4>')
-    .replace(/\n# (.*)/g, '\n<h4>$1</h4>')
-    .replace(/\n- /g, '\n<li>')
-    .replace(/\n(\d+)\. /g, '\n<li>');
-  
-  // Wrap lists
-  html = html.replace(/((?:<li>.*?\n?)+)/g, '<ul>$1</ul>');
-  html = html.replace(/\n/g, '<br>');
-  html = html.replace(/<ul><br>/g, '<ul>');
-  
-  return `<div style="white-space:normal">${html}</div>`;
+// 简单的 Markdown 转 HTML
+let html = text
+.replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>')
+.replace(/**(.?)**/g, '1</strong>') .replace(/\n### (.*)/g, '\n<h4>1')
+.replace(/\n## (.)/g, '\n1</h4>') .replace(/\n# (.*)/g, '\n<h4>1')
+.replace(/\n- /g, '\n')
+.replace(/\n(\d+). /g, '\n');
+
+// Wrap lists
+html = html.replace(/((?:.*?\n?)+)/g, '$1');
+html = html.replace(/\n/g, '');
+html = html.replace(//g, '');
+
+return <div style="white-space:normal">${html}</div>;
 }
 
 // 初始化 — 优先级：URL 携带密钥 > 本地存储 > 输入设置
 function clearStoredKey() {
-  try { localStorage.removeItem('ds_api_key'); } catch(e) {}
-  API_KEY = '';
-  conversationHistory = [];
+try { localStorage.removeItem('ds_api_key'); } catch(e) {}
+API_KEY = '';
+conversationHistory = [];
 }
 const savedKey = (() => { try { return localStorage.getItem('ds_api_key'); } catch(e) { return null; } })();
 // 如果本地存的是已吊销的旧 Key（尾号 daab）或任何非 sk- 开头的值，自动清理
 const isOldRevokedKey = savedKey && savedKey.endsWith('daab');
 
 function getUrlKey() {
-  try {
-    const p = new URLSearchParams(location.search).get('k');
-    if (!p) return null;
-    const dec = decodeURIComponent(escape(window.atob(decodeURIComponent(p))));
-    return dec.startsWith('sk-') ? dec : null;
-  } catch(e) { return null; }
+try {
+const p = new URLSearchParams(location.search).get('k');
+if (!p) return null;
+const dec = decodeURIComponent(escape(window.atob(decodeURIComponent(p))));
+return dec.startsWith('sk-') ? dec : null;
+} catch(e) { return null; }
 }
 const urlKey = getUrlKey();
 if (urlKey) {
-  API_KEY = urlKey;
-  try { localStorage.setItem('ds_api_key', urlKey); } catch(e) {}
-  try { history.replaceState(null, '', location.pathname); } catch(e) {}
-  showChat();
+API_KEY = urlKey;
+try { localStorage.setItem('ds_api_key', urlKey); } catch(e) {}
+try { history.replaceState(null, '', location.pathname); } catch(e) {}
+showChat();
 } else if (savedKey && savedKey.startsWith('sk-') && !isOldRevokedKey) {
-  API_KEY = savedKey;
-  showChat();
+API_KEY = savedKey;
+showChat();
 } else {
-  if (isOldRevokedKey) clearStoredKey();
-  showSetup();
+if (isOldRevokedKey) clearStoredKey();
+showSetup();
 }
-</script>
-</body>
-</html>
